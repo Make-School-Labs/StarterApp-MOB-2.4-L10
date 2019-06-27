@@ -22,7 +22,7 @@ class Asyn_Op_TesterTests: XCTestCase {
     func testDownloadWebData() {
         
         //TODO: Create an expectation for a background download task.
-        
+        let expectation = XCTestExpectation(description: "Download apple.com home page")
         
         // Create a URL for a web page to be downloaded.
         let url = URL(string: "https://apple.com")!
@@ -31,8 +31,10 @@ class Asyn_Op_TesterTests: XCTestCase {
         let dataTask = URLSession.shared.dataTask(with: url) { (data, _, _) in
             
             //TODO: Make sure we downloaded some data.
+            XCTAssertNotNil(data, "No data was downloaded.")
             
-            
+            // Fulfill the expectation to indicate that the background task has finished successfully.
+            expectation.fulfill()
         }
         
         // Start the download task.
